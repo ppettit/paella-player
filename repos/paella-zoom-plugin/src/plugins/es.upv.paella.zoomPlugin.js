@@ -124,13 +124,14 @@ export class ZoomCanvas extends Canvas {
                 evt.preventDefault();
             }
         }
-        this.element.addEventListener("mousedown", beginDrag);
-        this.element.addEventListener("mouseleave", endDrag);
-        this.element.addEventListener("mouseup", endDrag);
+        this.element.addEventListener("pointerdown", beginDrag);
+        this.element.addEventListener("pointerleave", endDrag);
+        this.element.addEventListener("pointerup", endDrag);
+        this.element.ondragstart = () => false;
         this.element.addEventListener("click", cancelClick);
-        this.element.addEventListener("mouseup", cancelClick);
+        this.element.addEventListener("pointerup", cancelClick);
 
-        this.element.addEventListener("mousemove", evt => {
+        this.element.addEventListener("pointermove", evt => {
             if (drag && this._playerCenter) {
                 if (dragPosition === null) {
                     dragPosition = { left: evt.clientX, top: evt.clientY };
@@ -186,7 +187,8 @@ export class ZoomCanvas extends Canvas {
     }
 
     zoomOut() {
-        const zoom = this.currentZoom * 0.9;
+        let zoom = this.currentZoom * 0.9;
+        if (zoom<1) {zoom=1.0}
         if (zoom>=1) {
             this.currentZoom = zoom;
             this._playerCenter = setZoom(this.element, this._videoPlayer.element, this.currentZoom);

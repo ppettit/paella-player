@@ -229,6 +229,7 @@ async function updateLayoutDynamic(this: VideoContainer): Promise<boolean> {
         canvas.element.style.height = "100%";
         canvas.element.style.overflow = "hidden";
         canvas.element.style.position = "relative";
+        canvas.element.style.touchAction = "none";
         canvasElements.push(canvas.element);
         canvas.element.sortIndex = 0;
         canvasElements.forEach(e => this.baseVideoRect.appendChild(e));
@@ -273,6 +274,7 @@ async function updateLayoutDynamic(this: VideoContainer): Promise<boolean> {
             canvas.element.style.height = `${videoHeight}px`;
             canvas.element.style.overflow = "hidden";
             canvas.element.style.position = "relative";
+            canvas.element.style.touchAction = "none";
             canvas.element.sortIndex = i++;
             canvasElements.push(canvas.element);
         }
@@ -736,5 +738,3 @@ export default class VideoContainer extends DomClass {
     }
     
 }
-
-
