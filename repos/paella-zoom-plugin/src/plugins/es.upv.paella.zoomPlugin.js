@@ -56,12 +56,18 @@ function movePlayer(player, currentPosition, offset) {
     player.style.top = `-${newPosition.top}px`;
 
     const top = (player.offsetHeight + player.offsetTop) - parent.offsetHeight;
+    if (newPosition.top<0) {
+        newPosition.top = 0
+    }
     if (top<0) {
         newPosition.top = currentPosition.top;
     }
 
     player.style.left = `-${newPosition.left}px`;
     const left = (player.offsetWidth + player.offsetLeft) - parent.offsetWidth;
+    if (newPosition.left<0) {
+        newPosition.left = 0;
+    }
     if (left<0) {
         newPosition.left = currentPosition.left;
     }
@@ -122,6 +128,7 @@ export class ZoomCanvas extends Canvas {
             if (preventClick) {
                 evt.stopPropagation();
                 evt.preventDefault();
+                dragPosition = null;
             }
         }
         this.element.addEventListener("pointerdown", beginDrag);
